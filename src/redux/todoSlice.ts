@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Todo } from "../models/Todo";
 import { v4 as uuidv4 } from "uuid";
 
-// const initialState = [] as Todo[];
-
 interface TodoSliceState {
 	todos: Todo[];
 }
@@ -20,12 +18,13 @@ const todoSlice = createSlice({
 			reducer: (state, action: PayloadAction<Todo>) => {
 				state.todos = [...state.todos, action.payload];
 			},
-			prepare: (title: string, description: string) => ({
+			prepare: (title: string, description: string, dueDate: Date) => ({
 				payload: {
 					id: uuidv4(),
 					title,
 					description,
 					completed: false,
+					dueDate,
 				} as Todo,
 			}),
 		},

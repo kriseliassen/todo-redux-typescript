@@ -2,42 +2,43 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeTodo, setTodoStatus, updateTodo } from "../redux/todoSlice";
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { format, formatRelative } from 'date-fns';
 
-interface Props {
+interface IProps {
   title: string,
   description?: string,
-  completed: boolean
+  completed: boolean,
+  dueDate: Date,
   id: string
 }
 
-interface Inputs {
+interface IInputs {
   title: string,
   description?: string,
+  dueDate?: Date
 }
 
-const TodoItem = ({ title, description, id, completed }: Props): JSX.Element => {
-
-
-
-  const [currentTodo, setCurrentTodo] = useState<Props>({ title, description, id, completed })
+const TodoItem = ({ title, description, id, completed, dueDate }: IProps): JSX.Element => {
+  const [currentTodo, setCurrentTodo] = useState<IProps>({} as IProps)
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const dispatch = useDispatch()
 
-  const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => {
+  const { register, handleSubmit } = useForm<IInputs>();
+  const onSubmit: SubmitHandler<IInputs> = data => {
     dispatch(updateTodo(currentTodo));
     setIsEditing(false);
   };
 
-  const deleteTodo = (): void => {
+  const deleteTodo = (e: React.SyntheticEvent): void => {
+    e.stopPropagation();
     dispatch(removeTodo(id))
   }
 
   const editTodo = (e: React.SyntheticEvent): void => {
     e.stopPropagation();
     setIsEditing(true);
-    setCurrentTodo({ title, description, id, completed })
+    setCurrentTodo({ title, description, dueDate, id, completed })
   }
 
   const toggleDone = () => {
@@ -45,6 +46,12 @@ const TodoItem = ({ title, description, id, completed }: Props): JSX.Element => 
       return;
     }
     dispatch(setTodoStatus({ completed: !completed, id }))
+  }
+
+  const dueInXDays = () => {
+    console.log(typeof dueDate);
+
+    return dueDate;
   }
 
   return (
@@ -65,6 +72,10 @@ const TodoItem = ({ title, description, id, completed }: Props): JSX.Element => 
             {...register('description')}
             onChange={(e) => setCurrentTodo({ ...currentTodo, description: e.target.value })}
           />
+          <input
+            type="date"
+            {...register('dueDate')}
+          />
           <input type="submit" value="Update" />
           <input
             type="button"
@@ -77,6 +88,7 @@ const TodoItem = ({ title, description, id, completed }: Props): JSX.Element => 
             <div>
               <h3>{title}</h3>
               <p>{description}</p>
+              <p>{dueInXDays()}</p>
             </div>
             <button onClick={editTodo}>Edit</button>
             <button onClick={deleteTodo}>Remove</button>
