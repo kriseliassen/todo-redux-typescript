@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 
-const App: React.FC = () => {
+const App = (): JSX.Element => {
 	return (
 		<div className="App">
 			<h1 className="text-3xl font-bold underline">

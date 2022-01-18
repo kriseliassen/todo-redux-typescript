@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeTodo, updateTodo } from "../redux/todoSlice";
+import { removeTodo, setTodoStatus, updateTodo } from "../redux/todoSlice";
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-interface IProps {
+interface Props {
   title: string,
   description?: string,
   completed: boolean
@@ -15,8 +15,11 @@ interface Inputs {
   description?: string,
 }
 
-const TodoItem: React.FC<IProps> = ({ title, description, id, completed }) => {
-  const [currentTodo, setCurrentTodo] = useState<IProps>({ title, description, id, completed })
+const TodoItem = ({ title, description, id, completed }: Props): JSX.Element => {
+
+
+
+  const [currentTodo, setCurrentTodo] = useState<Props>({ title, description, id, completed })
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const dispatch = useDispatch()
@@ -35,12 +38,17 @@ const TodoItem: React.FC<IProps> = ({ title, description, id, completed }) => {
     e.stopPropagation();
     setIsEditing(true);
     setCurrentTodo({ title, description, id, completed })
-    console.log('CLICKED TODO', currentTodo);
-    // dispatch(updateTodo(id))
+  }
+
+  const toggleDone = () => {
+    if (isEditing) {
+      return;
+    }
+    dispatch(setTodoStatus({ completed: !completed, id }))
   }
 
   return (
-    <div>
+    <div onClick={toggleDone}>
       {isEditing ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>Title</label>

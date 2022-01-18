@@ -9,7 +9,7 @@ type Inputs = {
   description: string,
 }
 
-const TodoForm: React.FC = () => {
+const TodoForm = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { register, handleSubmit, reset, setFocus } = useForm<Inputs>();
