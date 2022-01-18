@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { removeTodo } from "../redux/todoSlice";
+
 interface IProps {
   title: string,
   description?: string,
@@ -6,8 +9,10 @@ interface IProps {
 }
 const TodoItem: React.FC<IProps> = ({ title, description, id, completed }) => {
 
-  const removeTodo = () => {
-    console.log(id)
+  const dispatch = useDispatch()
+
+  const deleteTodo = () => {
+    dispatch(removeTodo(id))
   }
 
   return (
@@ -16,7 +21,7 @@ const TodoItem: React.FC<IProps> = ({ title, description, id, completed }) => {
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
-      <button onClick={removeTodo}>Remove</button>
+      <button onClick={deleteTodo}>Remove</button>
     </div>
   )
 }

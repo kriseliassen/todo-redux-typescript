@@ -30,7 +30,7 @@ const todoSlice = createSlice({
 			}),
 		},
 		updateTodo(state, action: PayloadAction<Todo>) {
-			state.todos.map((todo) => {
+			state.todos = state.todos.map((todo) => {
 				if (todo.id === action.payload.id) {
 					return { ...todo, ...action.payload };
 				}
@@ -38,7 +38,7 @@ const todoSlice = createSlice({
 			});
 		},
 		removeTodo(state, action: PayloadAction<string>) {
-			state.todos.filter((todo) => todo.id !== action.payload);
+			state.todos = state.todos.filter((todo) => todo.id !== action.payload);
 		},
 		setTodoStatus(
 			state,

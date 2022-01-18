@@ -1,41 +1,40 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { Field, Formik, Form } from "formik";
 import { addTodo } from "../redux/todoSlice";
+import { useForm, SubmitHandler } from 'react-hook-form'
 
-interface FormValues {
+type Inputs = {
   title: string,
-  description: string
+  description: string,
 }
 
 const TodoForm: React.FC = () => {
-  const initialValues: FormValues = {title: '', description: ''};
-
   const dispatch = useDispatch<AppDispatch>();
+
+  const { register, handleSubmit, reset, setFocus } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    dispatch(addTodo(data.title, data.description));
+    reset();
+    setFocus('title');
+  };
+
 
   return (
     <div>
       <h2>Add todo item</h2>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values: FormValues, actions) => {
-          dispatch(addTodo(values.title, values.description))
-          actions.setSubmitting(false);
-        }}>
-          <Form>
-            <label htmlFor="title">Title</label>
-            <Field 
-              id="title" 
-              name="title" 
-              placeholder="Title" />
-            <label htmlFor="description">Description</label>
-            <Field 
-              id="description" 
-              name="description" 
-              placeholder="Description" />
-           <button type="submit">Add todo</button>
-          </Form>
-      </Formik>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            placeholder="title"
+            {...register('title')}
+            required />
+          <input
+            placeholder="description"
+            {...register('description')} />
+          <input type="submit" />
+        </form>
+      </div>
     </div>
   )
 }
