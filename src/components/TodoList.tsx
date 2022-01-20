@@ -8,12 +8,12 @@ const TodoList = (): JSX.Element => {
   const doneItems = todoList.filter(item => item.completed)
 
   return (
-    <div className="w-full p-6 pt-4 mx-auto bg-slate-200 shadow-xl rounded-xl m-2">
-      <div className="w-full flex justify-between">
-        <h2 className="text-xl w-fit">
-          Your todo list
+    <div className="w-full p-6 py-12 pt-6 mx-auto bg-yellow-300">
+      <div className="w-full px-1 flex justify-between">
+        <h2 className="text-lg w-fit font-titan">
+          Your to-do list
         </h2>
-        <p className="text-sm self-center">
+        <p className="text-sm self-center font-titan text-right">
           {doneItems.length}/{todoList.length} items done
         </p>
       </div>

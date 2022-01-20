@@ -2,7 +2,8 @@ module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
 		fontFamily: {
-			sans: ["Source Sans Pro", "sans-serif"],
+			sans: ["Work Sans", "sans-serif"],
+			titan: ["Titan One", "sans-serif"],
 		},
 	},
 	plugins: [require("@tailwindcss/forms")],
