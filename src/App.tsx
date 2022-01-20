@@ -1,15 +1,33 @@
-import React from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import { SiReact, SiRedux, SiTypescript, SiTailwindcss, SiGithub } from 'react-icons/si'
 
 const App = (): JSX.Element => {
 	return (
-		<div className="App">
-			<h1 className="text-3xl font-bold underline">
-				To-do app with Redux, Typescript, and Tailwind
-			</h1>
-			<TodoForm />
-			<TodoList />
+		<div className="App min-h-screen bg-gradient-to-r from-gray-700 via-gray-900 to-black p-10">
+			<div className="max-w-2xl mx-auto p-6 bg-slate-50 border rounded-xl flex flex-col">
+				<header className="mx-auto text-center">
+					<h1 className="text-3xl mb-2">
+						To-do app
+					</h1>
+				</header>
+				<TodoForm />
+				<TodoList />
+				<footer className="mx-auto flex flex-col place-content-center space-y-2 m-2">
+					<div className="flex place-content-center">
+						<a href="https://github.com/kriseliassen" className="w-fit"><SiGithub /></a>
+					</div>
+					<p className="text-sm text-center">
+						made with
+						<span className="flex space-x-1">
+							<SiReact className="self-center" />
+							<SiRedux className="self-center" />
+							<SiTypescript className="self-center" />
+							<SiTailwindcss className="self-center" />
+						</span>
+					</p>
+				</footer>
+			</div>
 		</div>
 	);
 }

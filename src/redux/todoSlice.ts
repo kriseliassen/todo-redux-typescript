@@ -18,13 +18,12 @@ const todoSlice = createSlice({
 			reducer: (state, action: PayloadAction<Todo>) => {
 				state.todos = [...state.todos, action.payload];
 			},
-			prepare: (title: string, description: string, dueDate: Date) => ({
+			prepare: (title: string, description: string) => ({
 				payload: {
 					id: uuidv4(),
 					title,
 					description,
 					completed: false,
-					dueDate,
 				} as Todo,
 			}),
 		},
