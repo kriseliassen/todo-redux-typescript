@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { removeTodo, setTodoStatus, updateTodo } from "../redux/todoSlice";
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FiEdit3, FiTrash } from 'react-icons/fi';
-import { BsCircle, BsCheckCircle } from 'react-icons/bs';
 
 interface IProps {
   title: string,
